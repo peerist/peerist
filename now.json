@@ -1,0 +1,22 @@
+{
+  "name": "peerist",
+  "version": 2,
+  "builds": [
+    { "src": "www/package.json", "use": "@now/next" },
+    { "src": "api/index.rs", "use": "@now/rust" }
+  ],
+  "alias": ["peerist.now.sh"],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/www/$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+*/node_modules
+
+# Next output
+www/.next
+
+.DS_Store
