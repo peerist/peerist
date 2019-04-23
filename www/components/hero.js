@@ -3,7 +3,7 @@ import { string } from 'prop-types'
 
 const Hero = styled.div`
   background: black;
-  background-image: url('${props => `props.image`}');
+  ${props => props.image && `background-image: url('${props => props.image}');`}
   height: 20em;
   display: flex;
   align-items: center;
