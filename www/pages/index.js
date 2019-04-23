@@ -1,13 +1,14 @@
-import styled from '@emotion/styled'
 import Head from 'next/head'
+import styled from '@emotion/styled'
 import { useState, useEffect } from 'react'
 import { animated, useTransition } from 'react-spring'
+import { usePageVisibility } from 'react-browser-hooks'
 
-import Layout from '../components/layout'
-import Hero from '../components/hero'
-import { ArticleSnippet } from '../components/content'
-import { useInterval } from '../utils/hooks'
 import Tab from '../components/tabs'
+import Hero from '../components/hero'
+import Layout from '../components/layout'
+import { useInterval } from '../utils/hooks'
+import { ArticleSnippet } from '../components/content'
 
 const phraseChanger = function*(phrases) {
   let index = phrases.length
@@ -32,6 +33,8 @@ const phraser = phraseChanger([
 ])
 
 const Page = () => {
+  const visibility = usePageVisibility()
+  const [delay, setDelay] = useState(4000)
   const [text, setText] = useState('Science.')
   const [activeTab, setActiveTab] = useState('Most Recent')
   const transitions = useTransition(text, null, {
@@ -40,9 +43,13 @@ const Page = () => {
     leave: { opacity: 0, y: 20 }
   })
 
+  useEffect(() => {
+    setDelay(visibility ? 4000 : undefined)
+  }, [visibility])
+
   useInterval(() => {
     setText(phraser.next().value)
-  }, 4000)
+  }, delay)
 
   return (
     <>
