@@ -3977,6 +3977,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-browser-hooks@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-browser-hooks/-/react-browser-hooks-2.2.3.tgz#2b31731612b52aaec324048a0eaf651fe9b87d3a"
+  integrity sha512-JeRrc5+MM9OFif5e116uB+aeorYh0nI9TxAobgebArBq0h5poADuLvzSpH7oQ2WQfY6h1M2OOafDEK65GfHDvw==
+
 react-dom@^16.7.0:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
