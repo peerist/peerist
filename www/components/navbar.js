@@ -3,7 +3,7 @@ import { Container, Limiter } from './layout'
 
 const NavBar = ({ children }) => {
   return (
-    <Container>
+    <Container as="nav">
       <Limiter justifyContent="space-between" alignItems="center" p="2em">
         <img src="/static/logo.svg" css={{ height: 'auto', width: '160px' }} />
         <div>{children}</div>
