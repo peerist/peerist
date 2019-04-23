@@ -7,7 +7,7 @@ const ArticleSnippet = ({ title, preview }) => {
         marginBottom: '1.5em',
         padding: '2em',
         borderRadius: '7px',
-        boxShadow: '0px 0px 21px rgba(0, 0, 0, 0.05)'
+        boxShadow: '0px 0px 21px rgba(0, 0, 0, 0.1)'
       }}
     >
       <h3 css={{ marginBottom: '1em' }}>{title}</h3>
