@@ -3,7 +3,10 @@ import { string, bool } from 'prop-types'
 import { animated, useSpring } from 'react-spring'
 
 const Tab = ({ children, active, onClick }) => {
-  const { width, ...rest } = useSpring({ width: active ? 60 : 0 })
+  const { width, color, ...rest } = useSpring({
+    width: active ? 60 : 0,
+    color: active ? '#000000' : '#d3d3d3'
+  })
 
   return (
     <div
@@ -16,15 +19,15 @@ const Tab = ({ children, active, onClick }) => {
       }}
       onClick={onClick}
     >
-      <h2
-        css={{
+      <animated.h2
+        style={{
+          color,
           marginBottom: '0.5em',
-          fontVariant: 'all-petite-caps',
-          color: active ? 'black' : 'grey'
+          fontVariant: 'all-petite-caps'
         }}
       >
         {children}
-      </h2>
+      </animated.h2>
       <animated.div
         style={{
           background: '#9DDEB7',
