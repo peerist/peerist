@@ -10,6 +10,7 @@ import {
 
 const Button = styled.button`
   appearance: none;
+  border: none;
   display: inline-block;
   text-align: center;
   line-height: inherit;
