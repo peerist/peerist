@@ -7,6 +7,7 @@ import theme from '../theme'
 import Layout from '../components/layout'
 import NavBar from '../components/navbar'
 import Button from '../components/button'
+import Footer from '../components/footer'
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -29,7 +30,8 @@ class MyApp extends App {
             '*': {
               margin: 0,
               fontFamily: 'Inter, -apple-system, Segoe UI, sans-serif',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              WebkitFontSmoothing: 'antialiased'
             }
           }}
         />
@@ -38,6 +40,7 @@ class MyApp extends App {
             <Button>Log In</Button>
           </NavBar>
           <Component {...pageProps} />
+          <Footer />
         </ThemeProvider>
       </Container>
     )
