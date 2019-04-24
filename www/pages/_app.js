@@ -36,9 +36,7 @@ class MyApp extends App {
           }}
         />
         <ThemeProvider theme={theme}>
-          <NavBar>
-            <Button>Log In</Button>
-          </NavBar>
+          <NavBar />
           <Component {...pageProps} />
           <Footer />
         </ThemeProvider>
