@@ -13,6 +13,9 @@ const Tab = ({ children, active, onClick }) => {
       css={{
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'flex-end',
+        textAlign: 'center',
+        lineHeight: '140%',
         flexDirection: 'column',
         width: 'fit-content',
         margin: '0 1em 2em 1em'
