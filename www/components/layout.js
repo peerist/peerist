@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { justifyContent, alignItems, space } from 'styled-system'
-import { node } from 'prop-types'
+import { node, number } from 'prop-types'
 
 const Container = styled.div`
   width: 100%;
@@ -14,10 +14,11 @@ const Limiter = styled.div`
   ${justifyContent}
   ${alignItems}
   ${space}
-  flex-basis: ${props => props.theme.pageWidth || 1140}px;
+  flex-basis: ${props => props.width || props.theme.pageWidth || 1140}px;
 `
 
 Limiter.propTypes = {
+  width: number,
   ...justifyContent.propTypes,
   ...alignItems.propTypes,
   ...space.propTypes
