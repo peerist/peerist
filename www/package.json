@@ -13,6 +13,7 @@
     "react": "^16.7.0",
     "react-browser-hooks": "^2.2.3",
     "react-dom": "^16.7.0",
+    "react-feather": "^1.1.6",
     "react-spring": "^8.0.19",
     "styled-system": "^4.1.0",
     "typeface-inter": "^3.5.0"
