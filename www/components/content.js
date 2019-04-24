@@ -11,7 +11,14 @@ const ArticleSnippet = ({ title, preview }) => {
       }}
     >
       <h3 css={{ marginBottom: '1em' }}>{title}</h3>
-      <p css={{ paddingLeft: 0 }}>{preview}</p>
+      <p
+        css={{
+          fontWeight: 300,
+          color: 'dimGrey'
+        }}
+      >
+        {preview}
+      </p>
     </div>
   )
 }
