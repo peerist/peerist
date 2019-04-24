@@ -10,7 +10,9 @@ const FooterBase = styled.footer`
 
 const Footer = () => {
   return (
-    <FooterBase>&copy; Peerist Group {new Date().getFullYear()}</FooterBase>
+    <FooterBase>
+      &copy; Peerist Foundation {new Date().getFullYear()}
+    </FooterBase>
   )
 }
 
