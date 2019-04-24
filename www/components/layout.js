@@ -29,10 +29,10 @@ Limiter.defaultProps = {
   alignItems: 'flex-start'
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ children, width }) => {
   return (
     <Container>
-      <Limiter justifyContent="flex-start" px="2em">
+      <Limiter justifyContent="flex-start" px="2em" width={width}>
         {children}
       </Limiter>
     </Container>
