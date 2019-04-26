@@ -7,8 +7,12 @@ import { usePageVisibility } from 'react-browser-hooks'
 import Tab from '../components/tabs'
 import Hero from '../components/hero'
 import Layout from '../components/layout'
+import { useArxiv } from '../utils/hooks'
 import { useInterval } from '../utils/hooks'
+import SearchBar from '../components/search-bar'
 import { ArticleSnippet } from '../components/content'
+import { getData } from '../utils/api'
+import categories from '../utils/categories'
 
 const phraseChanger = function*(phrases) {
   let index = phrases.length
@@ -32,16 +36,23 @@ const phraser = phraseChanger([
   'Science.'
 ])
 
-const Page = () => {
+const Page = props => {
   const visibility = usePageVisibility()
   const [delay, setDelay] = useState(4000)
   const [text, setText] = useState('Science.')
   const [activeTab, setActiveTab] = useState('Most Recent')
+
+  const [papers, setPapers] = useState(props.papers)
+  const { output, refetch } = useArxiv()
   const transitions = useTransition(text, null, {
     from: { opacity: 0, y: -20 },
     enter: { opacity: 1, y: 0 },
     leave: { opacity: 0, y: 20 }
   })
+
+  useEffect(() => {
+    if (output) setPapers(output)
+  }, [output])
 
   useEffect(() => {
     setDelay(visibility ? 4000 : undefined)
@@ -76,53 +87,51 @@ const Page = () => {
           </h1>
         </Layout>
       </Hero>
-      <Layout>
+      <Layout width={860}>
         <main
           css={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexGrow: 1
+            width: '100%',
+            paddingTop: '2em'
           }}
         >
-          <div css={{ width: '100%', paddingTop: '2em', paddingRight: '1em' }}>
-            <div css={{ display: 'flex', flexDirection: 'row' }}>
-              <Tab
-                active={activeTab === 'Most Recent'}
-                onClick={() => setActiveTab('Most Recent')}
-              >
-                Most Recent
-              </Tab>
-              <Tab
-                active={activeTab === 'Popular'}
-                onClick={() => setActiveTab('Popular')}
-              >
-                Popular
-              </Tab>
-              <Tab
-                active={activeTab === 'Featured'}
-                onClick={() => setActiveTab('Featured')}
-              >
-                Featured
-              </Tab>
-            </div>
-            <ArticleSnippet
-              title="Ancestral sequences from an elite neutralizer proximal to the development of neutralization resistance as a potential source of HIV vaccine immunogens"
-              preview="Mesa and colleagues identify sequences that may define the transition from neutralization sensitive to resistant envs."
-            />
-            <ArticleSnippet
-              title="Evaluation of intuitive trunk and non-intuitive leg sEMG control interfaces as command input for a 2-D Fitts’s law style task"
-              preview="Verros and co-workers report a non-intuitive control interface for a trunk orthotic device for subjects with Duchenne muscular dystrophy that can be easily used to perform daily tasks."
-            />
-            <ArticleSnippet
-              title="Non-verbal speech cues as objective measures for negative symptoms in patients with schizophrenia"
-              preview="Tahir and colleagues use a machine learning based system to identify non-verbal speech cues that can be used as indices of the negative symptoms of schizophrenia."
-            />
+          <div css={{ marginBottom: '2em' }}>
+            <SearchBar onSubmit={refetch} />
           </div>
-          <div css={{ width: '400px' }}>links</div>
+          <div
+            css={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }}
+          >
+            <Tab
+              active={activeTab === 'Most Recent'}
+              onClick={() => setActiveTab('Most Recent')}
+            >
+              Most Recent
+            </Tab>
+          </div>
+          {papers &&
+            papers.map(p => (
+              <ArticleSnippet
+                key={p.title}
+                title={p.title}
+                preview={`${p.summary.substring(0, 200)}...`}
+              />
+            ))}
         </main>
       </Layout>
     </>
   )
+}
+
+Page.getInitialProps = async () => {
+  const papers = await getData(
+    `https://export.arxiv.org/api/query?search_query=cat:${categories.join(
+      '+OR+'
+    )}&sortBy=submittedDate&sortOrder=descending`
+  )
+  return { papers }
 }
 
 export default Page
