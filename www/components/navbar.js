@@ -20,7 +20,7 @@ const NavBar = ({ children }) => {
         justifyContent="space-between"
         alignItems="center"
         p="2em"
-        width={1800}
+        width={1250}
       >
         <Link href="/">
           <a>
