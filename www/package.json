@@ -16,7 +16,8 @@
     "react-feather": "^1.1.6",
     "react-spring": "^8.0.19",
     "styled-system": "^4.1.0",
-    "typeface-inter": "^3.5.0"
+    "typeface-inter": "^3.5.0",
+    "xml-js": "^1.6.11"
   },
   "scripts": {
     "start": "next dev",
