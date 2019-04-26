@@ -5,7 +5,7 @@
     { "src": "www/package.json", "use": "@now/next" },
     { "src": "api/index.rs", "use": "@now/rust" }
   ],
-  "alias": ["peerist.now.sh"],
+  "alias": ["peerist.org"],
   "routes": [
     {
       "src": "/api/(.*)",
