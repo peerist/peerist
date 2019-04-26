@@ -1,6 +1,7 @@
 import { xml2js as convert } from 'xml-js'
 import { useRef, useEffect, useState } from 'react'
 
+import { getData } from './api'
 import categories from './categories'
 
 export const useInterval = (callback, delay) => {
@@ -23,41 +24,26 @@ export const useInterval = (callback, delay) => {
 }
 
 export const useArxiv = (
-  id,
   query = categories.join('+OR+'),
+  id,
   results = 10,
   start = 0
 ) => {
   const [target, setTarget] = useState(
     `https://export.arxiv.org/api/query?${
-      id ? `id_list=${id}` : `search_query=all:${query}`
+      id
+        ? `id_list=${id}`
+        : `search_query=all:${query.replace(' ', '+') ||
+            categories.join('+OR+')}`
     }&start=${start}&max_results=${results}&sortBy=submittedDate&sortOrder=descending`
   )
-  const [ready, setReady] = useState(true)
+  const [ready, setReady] = useState(false)
   const [error, setError] = useState()
   const [output, setOutput] = useState()
 
   const makeRequest = async () => {
     try {
-      const response = await fetch(target)
-      const xml = await response.text()
-      const {
-        feed: { entry }
-      } = convert(xml, { compact: true })
-      const papers = entry.map(p => {
-        return {
-          id: p.id._text.split('/').pop(),
-          category: p['arxiv:primary_category']._attributes.term,
-          title: p.title._text.trim(),
-          summary: p.summary._text.trim(),
-          pdf: p.link.find(l => l._attributes.title === 'pdf')._attributes.href,
-          authors: Array.isArray(p.author)
-            ? p.author.map(a => ({
-                name: a.name._text.trim()
-              }))
-            : [p.author.name._text.trim()]
-        }
-      })
+      const papers = await getData(target)
       setOutput(papers)
     } catch (e) {
       setError(JSON.stringify(e))
@@ -70,13 +56,13 @@ export const useArxiv = (
     if (ready) makeRequest()
   }, [ready])
 
-  const refetch = (newId, newQuery, newResults, newStart) => {
+  const refetch = (newQuery, newId, newResults, newStart) => {
     if (newId || newQuery || newResults || newStart) {
       setTarget(
         `https://export.arxiv.org/api/query?${
           newId || id
             ? `id_list=${newId || id}`
-            : `search_query=all:${newQuery || query}`
+            : `search_query=all:${newQuery || categories.join('+')}`
         }&start=${newStart || start}&max_results=${newResults ||
           results}&sortBy=submittedDate&sortOrder=descending`
       )
