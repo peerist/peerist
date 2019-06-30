@@ -3,13 +3,13 @@
   "version": 2,
   "builds": [
     { "src": "www/package.json", "use": "@now/next" },
-    { "src": "api/index.rs", "use": "@now/rust" }
+    { "src": "webhooks/*.go", "use": "@now/go" }
   ],
   "alias": ["peerist.org"],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/webhooks/(.*)",
+      "dest": "/webhooks/$1.go"
     },
     {
       "src": "/(.*)",
