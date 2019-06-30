@@ -1,7 +1,9 @@
 import ky from 'ky-universal'
 import { xml2js as convert } from 'xml-js'
 
-export const getData = async target => {
+import { Paper } from '../models/paper'
+
+export const getData = async (target: string): Promise<Paper | undefined> => {
   let result
   try {
     const xml = await ky(target).text()
@@ -16,9 +18,7 @@ export const getData = async target => {
         summary: p.summary._text.trim(),
         pdf: p.link.find(l => l._attributes.title === 'pdf')._attributes.href,
         authors: Array.isArray(p.author)
-          ? p.author.map(a => ({
-              name: a.name._text.trim()
-            }))
+          ? p.author.map(a => a.name._text.trim())
           : [p.author.name._text.trim()]
       }
     })

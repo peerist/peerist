@@ -1,10 +1,9 @@
-import { xml2js as convert } from 'xml-js'
 import { useRef, useEffect, useState } from 'react'
 
 import { getData } from './api'
 import categories from './categories'
 
-export const useInterval = (callback, delay) => {
+export const useInterval = (callback: () => void, delay: number) => {
   const savedCallback = useRef()
 
   useEffect(() => {
@@ -25,7 +24,7 @@ export const useInterval = (callback, delay) => {
 
 export const useArxiv = (
   query = categories.join('+OR+'),
-  id,
+  id: string,
   results = 10,
   start = 0
 ) => {
@@ -56,7 +55,12 @@ export const useArxiv = (
     if (ready) makeRequest()
   }, [ready])
 
-  const refetch = (newQuery, newId, newResults, newStart) => {
+  const refetch = (
+    newQuery: any,
+    newId: string,
+    newResults: any,
+    newStart: number
+  ) => {
     if (newId || newQuery || newResults || newStart) {
       setTarget(
         `https://export.arxiv.org/api/query?${
