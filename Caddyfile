@@ -1,0 +1,6 @@
+localhost:80,
+localhost:443 {
+  proxy / graphql-engine:8080 {
+    websocket
+  }
+}

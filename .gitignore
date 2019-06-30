@@ -1,6 +1,15 @@
 */node_modules
+node_modules
 
 # Next output
 www/.next
 
 .DS_Store
+
+# Terraform output
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+
+# Zeit output
+.now
