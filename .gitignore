@@ -13,3 +13,6 @@ terraform.tfstate.backup
 
 # Zeit output
 .now
+
+# Storybook output
+dist

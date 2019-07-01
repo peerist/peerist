@@ -2,7 +2,8 @@
   "name": "peerist",
   "version": 2,
   "builds": [
-    { "src": "www/package.json", "use": "@now/next" },
+    { "src": "www/next.config.js", "use": "@now/next" },
+    { "src": "www/package.json", "use": "@now/static-build" },
     { "src": "webhooks/*.go", "use": "@now/go" }
   ],
   "alias": ["peerist.org"],
@@ -17,6 +18,10 @@
       "headers": {
         "x-request-path": "$1"
       }
+    },
+    {
+      "src": "/storybook/(.*)",
+      "dest": "/dist/$1"
     }
   ]
 }

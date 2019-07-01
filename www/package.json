@@ -5,6 +5,7 @@
     "@emotion/babel-preset-css-prop": "^10.0.9",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
+    "@types/storybook__react": "^4.0.2",
     "@zeit/next-typescript": "^1.1.1",
     "emotion-theming": "^10.0.10",
     "isomorphic-unfetch": "3.0.0",
@@ -22,7 +23,18 @@
     "xml-js": "^1.6.11"
   },
   "scripts": {
-    "start": "next dev",
-    "now-build": "next build"
+    "start": "next -p $PORT",
+    "now-build": "npm run build-storybook",
+    "now-dev": "start-storybook -p $PORT",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -c .storybook -o ../dist"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
+    "babel-loader": "^8.0.6"
   }
 }
